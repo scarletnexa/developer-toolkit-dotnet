@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("Developer Toolkit")]
 [assembly: AssemblyDescription("A collection of utility functions and tools for developers to streamline their projects.")]
-[assembly: AssemblyCompany("HyperStar")]
+[assembly: AssemblyCompany("hyliavt")]
 [assembly: AssemblyProduct("Developer Toolkit")]
 [assembly: AssemblyCopyright("Copyright © HyperStar 2023")]
 [assembly: AssemblyTrademark("")]
