@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Runtime.Remoting.Messaging;
 using System.Text.RegularExpressions;
 
 namespace Developer_Toolkit
@@ -159,6 +161,43 @@ namespace Developer_Toolkit
             {
                 // Handle any exception that might occur during the process
                 return "Error: " + ex.Message;
+            }
+        }
+
+        /// <summary>
+        /// Pings a website and returns the ping time in milliseconds.
+        /// </summary>
+        /// <returns>The ping time in milliseconds, or an error message if the ping fails.</returns>
+        public static string WebsitePing(string url, bool bShowMS = false)
+        {
+            try
+            {
+                Uri uri = new Uri(url);
+                using (Ping ping = new Ping())
+                {
+                    PingReply reply = ping.Send(uri.Host);
+
+                    if (reply.Status == IPStatus.Success)
+                    {
+                        return $"{reply.RoundtripTime}{(bShowMS ? " ms" : "")}";
+                    }
+                    else
+                    {
+                        return $"Ping to {url} failed. Error message: {reply.Status.ToString()}";
+                    }
+                }
+            }
+            catch (UriFormatException)
+            {
+                return $"Invalid URL format: {url}";
+            }
+            catch (PingException ex)
+            {
+                return $"An error occurred while pinging {url}. Error message: {ex.Message}";
+            }
+            catch (Exception ex)
+            {
+                return $"An unexpected error occurred while pinging {url}. Error message: {ex.Message}";
             }
         }
     }
